@@ -3,6 +3,12 @@ import React from "react";
 
 import { ArrowRightIcon } from "react-native-heroicons/outline";
 import OfferCard from "./OffersCard";
+import FeaturedRow from "./FeaturedRow";
+
+function getRandomCoordinate() {
+  // Generates a random coordinate within a specific range
+  return Math.random() * (180 - -180) + -180;
+}
 
 const MOCK_OFFERS = [
   {
@@ -15,6 +21,8 @@ const MOCK_OFFERS = [
       "https://images.pexels.com/photos/1639562/pexels-photo-1639562.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     short_description: "Delicious burgers for the whole family.",
     dishes: ["Classic Burger", "Cheeseburger", "Bacon Burger"],
+    lat: getRandomCoordinate(),
+    long: getRandomCoordinate(),
   },
   {
     id: 2,
@@ -26,6 +34,8 @@ const MOCK_OFFERS = [
       "https://images.pexels.com/photos/1148086/pexels-photo-1148086.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     short_description: "Authentic sushi experience with a variety of rolls.",
     dishes: ["Dragon Roll", "Sashimi Platter", "California Roll"],
+    lat: getRandomCoordinate(),
+    long: getRandomCoordinate(),
   },
   {
     id: 3,
@@ -37,6 +47,8 @@ const MOCK_OFFERS = [
       "https://images.pexels.com/photos/1653877/pexels-photo-1653877.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     short_description: "Traditional Italian pizza with a touch of Mama's love.",
     dishes: ["Margherita Pizza", "Pepperoni Pizza", "Vegetarian Delight"],
+    lat: getRandomCoordinate(),
+    long: getRandomCoordinate(),
   },
   {
     id: 4,
@@ -48,6 +60,8 @@ const MOCK_OFFERS = [
       "https://images.pexels.com/photos/704569/pexels-photo-704569.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     short_description: "Sizzling grills with a masterful touch.",
     dishes: ["BBQ Ribs", "Grilled Chicken", "Steakhouse Special"],
+    lat: getRandomCoordinate(),
+    long: getRandomCoordinate(),
   },
   {
     id: 5,
@@ -59,6 +73,8 @@ const MOCK_OFFERS = [
       "https://images.pexels.com/photos/1640773/pexels-photo-1640773.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     short_description: "A paradise for cheese lovers.",
     dishes: ["Four Cheese Pasta", "Cheese Fondue", "Caprese Salad"],
+    lat: getRandomCoordinate(),
+    long: getRandomCoordinate(),
   },
   {
     id: 6,
@@ -70,19 +86,18 @@ const MOCK_OFFERS = [
       "https://images.pexels.com/photos/831130/pexels-photo-831130.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     short_description: "Spicy and flavorful tacos for a festive fiesta.",
     dishes: ["Spicy Beef Tacos", "Fish Tacos", "Vegetarian Tacos"],
+    lat: getRandomCoordinate(),
+    long: getRandomCoordinate(),
   },
 ];
 
 const OffersNearYou = () => {
   return (
-    <View className="mt-4 mx-4">
-      <View className="flex-row">
-        <Text className="font-bold text-xl flex-1">Offers Near You!</Text>
-        <ArrowRightIcon size={25} color="#00ccbb" />
-      </View>
-      <Text className="font-bold text-gray-400 tex-xs">
-        Why not support your local restaurants tonight!
-      </Text>
+    <View className="mt-4">
+      <FeaturedRow
+        title={"Offers Near You!"}
+        subtitle="Why not support your local restaurants tonight!"
+      />
       <ScrollView
         contentContainerStyle={{
           paddingHorizontal: 15,
