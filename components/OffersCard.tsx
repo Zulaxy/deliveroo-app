@@ -20,6 +20,20 @@ interface OfferCardProps {
 }
 
 const OfferCard = ({ offer }: OfferCardProps) => {
+  let ratingColorClass = "text-black"; // Default color for ratings 3 and above
+
+  if (offer.rating < 4 && offer.rating > 2) {
+    ratingColorClass = "text-orange-400"; // Orange for ratings below 3
+  }
+
+  if (offer.rating < 2) {
+    ratingColorClass = "text-red-400"; // Red for ratings below 2
+  }
+
+  if (offer.rating > 4) {
+    ratingColorClass = "text-green-800";
+  }
+
   return (
     <TouchableOpacity className="mr-2 bg-white rounded-lg">
       <Image
@@ -32,13 +46,16 @@ const OfferCard = ({ offer }: OfferCardProps) => {
       <View className="mx-3 flex justify-center flex-1 py-3">
         <Text className="text-lg font-bold">OffersCard</Text>
         <View className="flex-row space-x-2 items-center">
-          <StarIcon size={15} color="green" />
-          <Text className="text-sm font-bold">{offer.rating}</Text>
-          <Text className="text-sm">{offer.tag}</Text>
+          <StarIcon size={15} color="#fde047" />
+
+          <Text className={`text-sm font-bold ${ratingColorClass}`}>
+            {offer.rating}
+          </Text>
+          <Text className="text-sm ">{offer.tag}</Text>
         </View>
         <View className="flex-row space-x-2 items-center">
           <MapPinIcon size={15} color="gray" />
-          <Text className="text-sm ">Nearby - {offer.location}</Text>
+          <Text className="text-sm">Nearby - {offer.location}</Text>
         </View>
       </View>
     </TouchableOpacity>

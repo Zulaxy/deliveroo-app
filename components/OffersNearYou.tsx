@@ -40,7 +40,7 @@ const MOCK_OFFERS = [
   {
     id: 3,
     title: "Mamma Mia Pizza",
-    rating: 4.2,
+    rating: 1.2,
     tag: "Pizza",
     location: "Oak Avenue 7",
     imgUrl:
@@ -66,7 +66,7 @@ const MOCK_OFFERS = [
   {
     id: 5,
     title: "Cheesy Delight",
-    rating: 4.4,
+    rating: 2.2,
     tag: "Cheese",
     location: "Cedar Street 3",
     imgUrl:
