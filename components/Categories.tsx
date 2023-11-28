@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Text, ScrollView } from "react-native";
+import { ScrollView } from "react-native";
 
 import CategoryCard from "./CategoryCard";
 

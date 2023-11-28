@@ -11,6 +11,7 @@ import {
   MagnifyingGlassIcon,
   AdjustmentsVerticalIcon,
 } from "react-native-heroicons/outline";
+import OffersNearYou from "../components/OffersNearYou";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -53,9 +54,11 @@ const HomeScreen = () => {
 
       {/* Body */}
 
-      <ScrollView className="bg-red-400 h-full">
+      <ScrollView className="bg-gray-100">
         {/* Categories */}
         <Categories />
+
+        <OffersNearYou />
 
         {/* Featured */}
       </ScrollView>
