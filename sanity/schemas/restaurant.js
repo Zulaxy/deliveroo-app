@@ -48,10 +48,10 @@ export default {
       to: [{ type: "category" }],
     },
     {
-      type: "reference",
+      type: "array",
       name: "dishes",
       title: "Dishes",
-      of: [{ type: "reference", to: [{ type: "dishes" }] }],
+      of: [{ type: "reference", to: [{ type: "dish" }] }],
     },
   ],
 };
