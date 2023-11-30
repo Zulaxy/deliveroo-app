@@ -12,6 +12,8 @@ import {
   AdjustmentsVerticalIcon,
 } from "react-native-heroicons/outline";
 import OffersNearYou from "../components/OffersNearYou";
+import Featured from "../components/Featured";
+import TastyDiscounts from "../components/TastyDiscounts";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -55,12 +57,13 @@ const HomeScreen = () => {
       {/* Body */}
 
       <ScrollView className="bg-gray-100">
-        {/* Categories */}
         <Categories />
 
         <OffersNearYou />
 
-        {/* Featured */}
+        <Featured />
+
+        <TastyDiscounts />
       </ScrollView>
     </SafeAreaView>
   );

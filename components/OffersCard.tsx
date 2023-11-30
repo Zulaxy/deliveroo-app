@@ -35,7 +35,7 @@ const OfferCard = ({ offer }: OfferCardProps) => {
   }
 
   return (
-    <TouchableOpacity className="mr-2 bg-white rounded-lg">
+    <TouchableOpacity className="mr-2 bg-white rounded-lg shadow">
       <Image
         className="w-64 h-36 rounded-t-lg"
         source={{

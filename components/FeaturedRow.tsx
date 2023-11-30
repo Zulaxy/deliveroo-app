@@ -26,4 +26,3 @@ const FeaturedRow = ({ title, subtitle }: FeaturedRowProps) => {
 
 export default FeaturedRow;
 
-const styles = StyleSheet.create({});
