@@ -20,14 +20,14 @@ interface OfferCardProps {
 }
 
 const OfferCard = ({ offer }: OfferCardProps) => {
-  let ratingColorClass = "text-black"; // Default color for ratings 3 and above
-
+  let ratingColorClass = "text-black";
+  
   if (offer.rating < 4 && offer.rating > 2) {
-    ratingColorClass = "text-orange-400"; // Orange for ratings below 3
+    ratingColorClass = "text-orange-400";
   }
 
   if (offer.rating < 2) {
-    ratingColorClass = "text-red-400"; // Red for ratings below 2
+    ratingColorClass = "text-red-400";
   }
 
   if (offer.rating > 4) {
@@ -44,7 +44,7 @@ const OfferCard = ({ offer }: OfferCardProps) => {
       />
 
       <View className="mx-3 flex justify-center flex-1 py-3">
-        <Text className="text-lg font-bold">OffersCard</Text>
+        <Text className="text-lg font-bold">{offer.title}</Text>
         <View className="flex-row space-x-2 items-center">
           <StarIcon size={15} color="#fde047" />
 
