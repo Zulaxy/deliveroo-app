@@ -1,4 +1,7 @@
 import { TouchableOpacity, Text, View, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+
 import React from "react";
 
 import { StarIcon } from "react-native-heroicons/solid";
@@ -6,9 +9,12 @@ import { MapPinIcon } from "react-native-heroicons/outline";
 
 import { urlFor } from "../sanity";
 
-import {SingleOfferTypes } from "../types";
+import { RootStackParamList, SingleOfferTypes } from "../types";
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, "Home">;
 
 const OfferCard = ({ offer }: SingleOfferTypes) => {
+  const navigation = useNavigation<NavigationProp>();
   let ratingColorClass = "text-black";
 
   if (offer.rating < 4 && offer.rating > 2) {
@@ -24,11 +30,16 @@ const OfferCard = ({ offer }: SingleOfferTypes) => {
   }
 
   return (
-    <TouchableOpacity className="mr-2 bg-white rounded-lg shadow">
+    <TouchableOpacity
+      className="mr-2 bg-white rounded-lg shadow"
+      onPress={() => {
+        navigation.navigate("Restaurant", { offer: offer });
+      }}
+    >
       <Image
         className="w-64 h-36 rounded-t-lg"
         source={{
-          uri: urlFor(offer.image).width(256).height(144).url(),
+          uri: urlFor(offer.image).width(256).url(),
         }}
       />
 

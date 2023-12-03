@@ -54,8 +54,7 @@ const Categories = () => {
         <CategoryCard
           key={category._id}
           title={category.name}
-          imgUrl={urlFor(category.image).width(144).height(144).url()}
-          // imgUrl={category.imgUrl}
+          imgUrl={urlFor(category.image).width(200).url()}
         />
       ))}
     </ScrollView>

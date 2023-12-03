@@ -7,7 +7,7 @@ const client = createClient({
   projectId: "ikogi8rm",
   dataset: "production",
   apiVersion: "v2021-10-21",
-  useCdn: true,
+  useCdn: false,
 });
 
 const builder = imgUrlBuilder(client);

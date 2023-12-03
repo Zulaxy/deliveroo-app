@@ -23,3 +23,9 @@ export interface SingleOfferTypes {
     short_description: string;
   };
 }
+
+export type RootStackParamList = {
+  Index: Object;
+  Home: undefined;
+  Restaurant: { offer: SingleOfferTypes["offer"] };
+};
