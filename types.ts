@@ -10,6 +10,7 @@ export interface SanityImage {
 
 export interface SingleOfferTypes {
   offer: {
+    _id: string;
     id: number;
     title: string;
     rating: number;
@@ -27,5 +28,5 @@ export interface SingleOfferTypes {
 export type RootStackParamList = {
   Index: Object;
   Home: undefined;
-  Restaurant: { offer: SingleOfferTypes["offer"] };
+  Restaurant: { id: string };
 };

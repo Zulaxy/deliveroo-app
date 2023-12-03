@@ -50,6 +50,23 @@ export async function getRestaurantsForSpecificCategory(id: string) {
 }
 
 /**
+ * Fetches a specific restaurant by its ID.
+ *
+ * @param {string} id - The ID of the restaurant to fetch.
+ * @returns {Promise<Object>} A promise that resolves to the restaurant object.
+ */
+export async function getRestaurantById(id: string) {
+  const data = await client.fetch(
+    groq`*[_type == "restaurant" && _id == "${id}"] {
+      ...,
+      "category": category->,
+      dishes[]->,
+    }[0]`
+  );
+  return data;
+}
+
+/**
  * Fetches all featured categories from the CMS.
  *
  * @returns {Promise<Object>} A promise that resolves to the featured category object.

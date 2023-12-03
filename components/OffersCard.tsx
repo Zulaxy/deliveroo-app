@@ -33,7 +33,7 @@ const OfferCard = ({ offer }: SingleOfferTypes) => {
     <TouchableOpacity
       className="mr-2 bg-white rounded-lg shadow"
       onPress={() => {
-        navigation.navigate("Restaurant", { offer: offer });
+        navigation.navigate("Restaurant", { id: offer._id });
       }}
     >
       <Image
