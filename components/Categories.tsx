@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { ScrollView } from "react-native";
 
 import CategoryCard from "./CategoryCard";
+import { getAllCategories, urlFor } from "../sanity";
 
 const DUMMY_CATEGORIES = [
   {
@@ -32,6 +33,14 @@ const DUMMY_CATEGORIES = [
 ];
 
 const Categories = () => {
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    getAllCategories().then((data) => {
+      setCategories(data);
+    });
+  }, []);
+
   return (
     <ScrollView
       contentContainerStyle={{
@@ -41,11 +50,12 @@ const Categories = () => {
       horizontal
       showsHorizontalScrollIndicator={false}
     >
-      {DUMMY_CATEGORIES.map((category) => (
+      {categories.map((category: any) => (
         <CategoryCard
-          key={category.title}
-          title={category.title}
-          imgUrl={category.imgUrl}
+          key={category._id}
+          title={category.name}
+          imgUrl={urlFor(category.image).width(144).height(144).url()}
+          // imgUrl={category.imgUrl}
         />
       ))}
     </ScrollView>

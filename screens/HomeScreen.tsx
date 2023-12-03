@@ -11,9 +11,8 @@ import {
   MagnifyingGlassIcon,
   AdjustmentsVerticalIcon,
 } from "react-native-heroicons/outline";
-import OffersNearYou from "../components/OffersNearYou";
-import Featured from "../components/Featured";
-import TastyDiscounts from "../components/TastyDiscounts";
+import { getFeaturedCategories } from "../sanity";
+import FeaturedRowComponent from "../components/FeaturedRowComponent";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -26,7 +25,9 @@ const HomeScreen = () => {
   }, []);
 
   useEffect(() => {
-    
+    getFeaturedCategories().then((data) => {
+      setFeaturedCategories(data);
+    });
   }, []);
 
   return (
@@ -58,17 +59,21 @@ const HomeScreen = () => {
         </View>
         <AdjustmentsVerticalIcon size={25} color="#00ccbb" />
       </View>
+      <View className="pb-4">
+        <Categories />
+      </View>
 
       {/* Body */}
 
       <ScrollView className="bg-gray-100">
-        <Categories />
-
-        <OffersNearYou />
-
-        <Featured />
-
-        <TastyDiscounts />
+        {featuredCategories.map((category: any) => (
+          <FeaturedRowComponent
+            id={category._id}
+            key={category._id}
+            title={category.name}
+            description={category.short_Description}
+          />
+        ))}
       </ScrollView>
     </SafeAreaView>
   );

@@ -4,24 +4,13 @@ import React from "react";
 import { StarIcon } from "react-native-heroicons/solid";
 import { MapPinIcon } from "react-native-heroicons/outline";
 
-interface OfferCardProps {
-  offer: {
-    id: number;
-    title: string;
-    rating: number;
-    tag: string;
-    location: string;
-    imgUrl: string;
-    lat: string | number;
-    long: string | number;
-    dishes: string[];
-    short_description: string;
-  };
-}
+import { urlFor } from "../sanity";
 
-const OfferCard = ({ offer }: OfferCardProps) => {
+import {SingleOfferTypes } from "../types";
+
+const OfferCard = ({ offer }: SingleOfferTypes) => {
   let ratingColorClass = "text-black";
-  
+
   if (offer.rating < 4 && offer.rating > 2) {
     ratingColorClass = "text-orange-400";
   }
@@ -39,7 +28,7 @@ const OfferCard = ({ offer }: OfferCardProps) => {
       <Image
         className="w-64 h-36 rounded-t-lg"
         source={{
-          uri: offer.imgUrl,
+          uri: urlFor(offer.image).width(256).height(144).url(),
         }}
       />
 
@@ -55,7 +44,7 @@ const OfferCard = ({ offer }: OfferCardProps) => {
         </View>
         <View className="flex-row space-x-2 items-center">
           <MapPinIcon size={15} color="gray" />
-          <Text className="text-sm">Nearby - {offer.location}</Text>
+          <Text className="text-sm">Nearby - {offer.address}</Text>
         </View>
       </View>
     </TouchableOpacity>
