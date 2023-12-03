@@ -1,19 +1,25 @@
-import { View, Text } from "react-native";
-import React, { useEffect } from "react";
-import { RouteProp } from "@react-navigation/native";
+import { View, Text, ScrollView, Image } from "react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { getRestaurantById, urlFor } from "../sanity";
 import { RootStackParamList } from "../types";
-import { getRestaurantById } from "../sanity";
+import { SingleOfferTypes } from "../types";
 
-type RestaurantScreenRouteProp = RouteProp<RootStackParamList, "Restaurant">;
+const SingleRestaurantScreen = () => {
+  const navigation = useNavigation();
 
-const SingleRestaurantScreen = ({
-  route,
-}: {
-  route: RestaurantScreenRouteProp;
-}) => {
-  const { id } = route.params;
+  const route = useRoute();
+  const { id } = route.params as RootStackParamList["Restaurant"];
 
-  const [restaurant, setRestaurant] = React.useState([]);
+  const [restaurant, setRestaurant] = useState<
+    SingleOfferTypes["offer"] | null
+  >(null);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false,
+    });
+  }, []);
 
   useEffect(() => {
     getRestaurantById(id).then((data) => {
@@ -25,9 +31,18 @@ const SingleRestaurantScreen = ({
 
   console.log(id);
   return (
-    <View>
-      <Text>SingleRestaurantScreen</Text>
-    </View>
+    <ScrollView>
+      <View>
+        {restaurant && (
+          <Image
+            className="h-40 w-full"
+            width={20}
+            source={{ uri: urlFor(restaurant!.image).width(256).url() }}
+          />
+        )}
+        <Text>{restaurant?.title}</Text>
+      </View>
+    </ScrollView>
   );
 };
 
