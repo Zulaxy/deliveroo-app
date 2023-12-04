@@ -32,6 +32,11 @@ export const restaurant = defineType({
       title: 'Address',
     }),
     defineField({
+      name: 'short_description',
+      type: 'string',
+      title: 'Description',
+    }),
+    defineField({
       name: 'rating',
       type: 'number',
       title: 'Rating',

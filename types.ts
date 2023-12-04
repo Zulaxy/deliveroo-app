@@ -1,11 +1,17 @@
-export interface SanityImage {
-  image: {
-    _type: string;
-    asset: {
-      _ref: string;
-      _type: string;
-    };
-  };
+import { SanityAsset } from "@sanity/image-url/lib/types/types";
+
+export interface DishTypes {
+  description?: string;
+  id?: string;
+  image: SanityAsset;
+  short_description: string;
+  _type: string;
+  name: string;
+  _id: string;
+  _updatedAt: string;
+  price: number;
+  _createdAt: string;
+  _rev: string;
 }
 
 export interface SingleOfferTypes {
@@ -13,14 +19,15 @@ export interface SingleOfferTypes {
     _id: string;
     id: number;
     title: string;
+    name: string;
     rating: number;
     tag: string;
     address: string;
-    image: SanityImage;
+    image: SanityAsset;
     imgUrl: string;
     lat: string | number;
     long: string | number;
-    dishes: string[];
+    dishes: DishTypes[];
     short_description: string;
   };
 }
