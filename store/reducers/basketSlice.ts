@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { DishTypes } from "../../types";
 import { SanityAsset } from "@sanity/image-url/lib/types/types";
 import { RootState } from "../store";
@@ -27,13 +27,27 @@ export const basketSlice = createSlice({
     addToBasket: (state, action) => {
       state.items = [...state.items, action.payload];
     },
-    // removeFromBasket: (state, action) => {
-    //   // state.items = -1;
-    // },
+    removeFromBasket: (state, action) => {
+      const index = state.items.findIndex(
+        (item) => item._id === action.payload
+      );
+
+      let newBasket = [...state.items];
+
+      if (index >= 0) {
+        newBasket.splice(index, 1);
+      } else {
+        console.warn(
+          `Can't remove product (id: ${action.payload}) as it's not in the basket`
+        );
+      }
+
+      state.items = newBasket;
+    },
   },
 });
 
-export const { addToBasket } = basketSlice.actions;
+export const { addToBasket, removeFromBasket } = basketSlice.actions;
 
 export const selectBasketItems = (state: RootState) => state.basket.items;
 
