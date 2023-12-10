@@ -1,15 +1,19 @@
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity, Image, ScrollView } from "react-native";
 import React, { useMemo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRestaurant } from "../store/reducers/restaurantSlice";
 import { Dishes, selectBasketItems } from "../store/reducers/basketSlice";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { XCircleIcon } from "react-native-heroicons/solid";
+import { urlFor } from "../sanity";
 
 const BasketScreen = () => {
   const navigation = useNavigation();
 
-  const redtaurant = useSelector(selectRestaurant);
+  const restaurant = useSelector(selectRestaurant);
   const items = useSelector(selectBasketItems);
+
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState<Record<
     string,
     Dishes[]
@@ -26,12 +30,54 @@ const BasketScreen = () => {
     setGroupedItemsInBasket(groupedItems);
   }, [items]);
 
-  console.log(groupedItemsInBasket);
-
   return (
-    <View>
-      <Text>BasketScreen</Text>
-    </View>
+    <SafeAreaView className="flex-1 bg-white">
+      <View className="flex-1 bg-gray-100">
+        <View className="p-5 border-b border-[#00ccbb] bg-white shadow-xs">
+          <View className="">
+            <Text className="text-lg font-bold text-center">Basket</Text>
+            <Text className="text-center text-gray-400">
+              {restaurant.title}
+            </Text>
+          </View>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.goBack();
+            }}
+            className="rounded-full bg-gray-100 absolute top-3 right-5"
+          >
+            <XCircleIcon size={50} color="#00ccbb" />
+          </TouchableOpacity>
+        </View>
+        <View className="flex-row items-center space-x-4 px-4 py-3 bg-white my-5">
+          <Image
+            className="w-7 h-7 rounded-full bg-gray-300 p4"
+            source={{
+              uri: "https://images.prismic.io/dbhq-deliveroo-riders-website/ed825791-0ba4-452c-b2cb-b5381067aad3_RW_hk_kit_importance.png?auto=compress,format&rect=0,0,1753,1816&w=1400&h=1450",
+            }}
+          />
+          <Text className="flex-1">Deliver in 50 minutes</Text>
+          <TouchableOpacity>
+            <Text className="text-[#00ccbb]">Change</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <ScrollView>
+            {groupedItemsInBasket &&
+              Object.entries(groupedItemsInBasket).map(([key, items]) => (
+                <View key={key} className="flex-row">
+                  <Text>{items.length} x</Text>
+                  <Image
+                    className="w-12 h-12 rounded-full"
+                    source={{ uri: urlFor(items[0]?.image).url() }}
+                  />
+                  <Text className="flex-1">{items[0]?.name}</Text>
+                </View>
+              ))}
+          </ScrollView>
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 

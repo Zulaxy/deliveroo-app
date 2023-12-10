@@ -47,10 +47,9 @@ const SingleRestaurantScreen = () => {
   useEffect(() => {
     getRestaurantById(id).then((data) => {
       setRestaurant(data);
-      dispatch(setRestaurantAction(restaurant));
+      dispatch(setRestaurantAction(data));
     });
   }, []);
-
 
   return (
     <>
