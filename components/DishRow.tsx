@@ -33,6 +33,7 @@ const DishRow = ({ dish }: DishRowProps) => {
 
   const handleRemoveFromBasket = (dish: DishTypes) => {
     if (basketItemsPerId.length === 0) return;
+
     dispatch(removeFromBasket(dish._id));
   };
 

@@ -35,5 +35,6 @@ export interface SingleOfferTypes {
 export type RootStackParamList = {
   Index: Object;
   Home: undefined;
+  Basket: undefined;
   Restaurant: { id: string };
 };

@@ -1,9 +1,9 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit";
 import { DishTypes } from "../../types";
 import { SanityAsset } from "@sanity/image-url/lib/types/types";
 import { RootState } from "../store";
 
-interface Dishes {
+export interface Dishes {
   _id: string;
   id: string;
   name: string;
@@ -51,7 +51,22 @@ export const { addToBasket, removeFromBasket } = basketSlice.actions;
 
 export const selectBasketItems = (state: RootState) => state.basket.items;
 
-export const selectBasketItemsById = (state: RootState, id: string) =>
-  state.basket.items.filter((item) => item._id === id);
+export const selectBasketItemsById = createSelector(
+  // Input selectors
+  (state: RootState) => state.basket.items,
+  (_, id: string) => id,
+
+  // Result function
+  (items: DishTypes[], id) => items.filter((item: DishTypes) => item._id === id)
+);
+
+export const selectBasketTotal = createSelector(
+  // Input selector
+  (state: RootState) => state.basket.items,
+
+  // Result function
+  (items: Dishes[]) =>
+    items.reduce((total: number, item: Dishes) => total + Number(item.price), 0)
+);
 
 export default basketSlice.reducer;
