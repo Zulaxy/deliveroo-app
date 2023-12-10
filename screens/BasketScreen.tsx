@@ -3,15 +3,22 @@ import React, { useMemo, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectRestaurant } from "../store/reducers/restaurantSlice";
-import { Dishes, selectBasketItems } from "../store/reducers/basketSlice";
+import {
+  Dishes,
+  removeFromBasket,
+  selectBasketItems,
+  selectBasketTotal,
+} from "../store/reducers/basketSlice";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { XCircleIcon } from "react-native-heroicons/solid";
 import { urlFor } from "../sanity";
+import Currency from "react-currency-formatter";
 
 const BasketScreen = () => {
   const navigation = useNavigation();
 
   const restaurant = useSelector(selectRestaurant);
+  const basketTotal = useSelector(selectBasketTotal);
   const items = useSelector(selectBasketItems);
 
   const [groupedItemsInBasket, setGroupedItemsInBasket] = useState<Record<
@@ -61,20 +68,66 @@ const BasketScreen = () => {
             <Text className="text-[#00ccbb]">Change</Text>
           </TouchableOpacity>
         </View>
-        <View>
-          <ScrollView>
+        <View className="flex-1">
+          <ScrollView className="divide-y-[0.5px] divide-gray-500">
             {groupedItemsInBasket &&
               Object.entries(groupedItemsInBasket).map(([key, items]) => (
-                <View key={key} className="flex-row">
-                  <Text>{items.length} x</Text>
+                <View
+                  key={key}
+                  className="flex-row items-center space-x-3 bg-white py-2 px-5"
+                >
+                  <Text className="text-[#00ccbb]">{items.length} x</Text>
                   <Image
                     className="w-12 h-12 rounded-full"
                     source={{ uri: urlFor(items[0]?.image).url() }}
                   />
                   <Text className="flex-1">{items[0]?.name}</Text>
+
+                  <Text className="flex-1">
+                    <Currency
+                      quantity={+items[0].price}
+                      currency="BGN"
+                      decimal="."
+                    />
+                  </Text>
+                  <TouchableOpacity>
+                    <Text
+                      className="text-[#00ccbb] text-xs"
+                      onPress={() => {
+                        dispatch(removeFromBasket(items[0]._id));
+                      }}
+                    >
+                      Remove 1
+                    </Text>
+                  </TouchableOpacity>
                 </View>
               ))}
           </ScrollView>
+        </View>
+        <View className="p-5 bg-white mt-y space-y-4">
+          <View className="flex-row justify-between">
+            <Text className="text-gray-400">Subtotal</Text>
+            <Text className="text-gray-400">
+              <Currency quantity={basketTotal} currency="BGN" decimal="." />
+            </Text>
+          </View>
+          <View className="flex-row justify-between">
+            <Text className="text-gray-400">Delivery Fee</Text>
+            <Text className="text-gray-400">
+              <Currency quantity={5.99} currency="BGN" decimal="." />
+            </Text>
+          </View>
+          <View className="flex-row justify-between">
+            <Text className="font-extrabold text-lg">Basket Total</Text>
+            <Text className="font-extrabold text-lg">
+              <Currency quantity={5.99} currency="BGN" decimal="." />
+            </Text>
+          </View>
+          <TouchableOpacity className="rounded-lg bg-[#00ccbb] p-4">
+            <Text className="text-center text-white text-lg font-bold">
+              Place Order
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
