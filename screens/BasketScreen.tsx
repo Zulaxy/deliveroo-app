@@ -13,9 +13,16 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { XCircleIcon } from "react-native-heroicons/solid";
 import { urlFor } from "../sanity";
 import Currency from "react-currency-formatter";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../types";
 
 const BasketScreen = () => {
-  const navigation = useNavigation();
+  type NavigationProp = NativeStackNavigationProp<
+    RootStackParamList,
+    "PreparingOrderScreen"
+  >;
+
+  const navigation = useNavigation<NavigationProp>();
 
   const restaurant = useSelector(selectRestaurant);
   const basketTotal = useSelector(selectBasketTotal);
@@ -123,7 +130,12 @@ const BasketScreen = () => {
               <Currency quantity={5.99} currency="BGN" decimal="." />
             </Text>
           </View>
-          <TouchableOpacity className="rounded-lg bg-[#00ccbb] p-4">
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("PreparingOrderScreen");
+            }}
+            className="rounded-lg bg-[#00ccbb] p-4"
+          >
             <Text className="text-center text-white text-lg font-bold">
               Place Order
             </Text>

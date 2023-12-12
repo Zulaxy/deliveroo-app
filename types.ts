@@ -37,4 +37,5 @@ export type RootStackParamList = {
   Home: undefined;
   Basket: undefined;
   Restaurant: { id: string };
+  PreparingOrderScreen: undefined;
 };
