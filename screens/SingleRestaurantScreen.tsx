@@ -18,6 +18,9 @@ import {
   StarIcon,
 } from "react-native-heroicons/solid";
 
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../tailwind.config.js";
+
 import { setRestaurant as setRestaurantAction } from "../store/reducers/restaurantSlice";
 
 import { QuestionMarkCircleIcon } from "react-native-heroicons/outline";
@@ -27,6 +30,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectBasketItems } from "../store/reducers/basketSlice";
 
 const SingleRestaurantScreen = () => {
+  const fullConfig = resolveConfig(tailwindConfig);
+
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const items = useSelector(selectBasketItems);
@@ -70,7 +75,7 @@ const SingleRestaurantScreen = () => {
               }}
               className="h-6 w-6"
               size={20}
-              color="#00ccbb"
+              color={fullConfig?.theme?.colors?.mainColor as string}
             />
           </TouchableOpacity>
         </View>
@@ -101,7 +106,10 @@ const SingleRestaurantScreen = () => {
               <QuestionMarkCircleIcon size={15} color="gray" />
               <Text className="text-sm font-bold">More info</Text>
             </View>
-            <ChevronRightIcon size={15} color="#00ccbb" />
+            <ChevronRightIcon
+              size={15}
+              color={fullConfig?.theme?.colors?.mainColor as string}
+            />
           </TouchableOpacity>
         </View>
 

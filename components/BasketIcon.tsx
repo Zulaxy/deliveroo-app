@@ -27,7 +27,7 @@ const BasketIcon = () => {
         onPress={() => {
           navigation.navigate("Basket");
         }}
-        className="mx-5 p-4 rounded-lg items-center bg-[#00ccbb] flex-row space-x-2"
+        className="mx-5 p-4 rounded-lg items-center bg-mainColor flex-row space-x-2"
       >
         <Text className="text-white font-extrabold text-lg bg-[#01a296] py-1 px-2">
           {items.length}

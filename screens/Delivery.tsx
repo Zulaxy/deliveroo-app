@@ -16,8 +16,12 @@ import { RootStackParamList } from "../types";
 import * as Progress from "react-native-progress";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
 
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../tailwind.config.js";
+
 const Delivery = () => {
   const restaurant = useSelector(selectRestaurant);
+  const fullConfig = resolveConfig(tailwindConfig);
 
   type NavigationProp = NativeStackNavigationProp<
     RootStackParamList,
@@ -27,7 +31,7 @@ const Delivery = () => {
   const navigation = useNavigation<NavigationProp>();
 
   return (
-    <View className="bg-[#00ccbb] flex-1">
+    <View className="bg-mainColor flex-1">
       <SafeAreaView className="z-50 mt-10">
         <View className="flex-row justify-between items-center p-5">
           <TouchableOpacity
@@ -50,7 +54,11 @@ const Delivery = () => {
               source={{ uri: "https://i.giphy.com/gsr9MG7bDvSRWWSD1Y.webp" }}
             />
           </View>
-          <Progress.Bar width={150} color="#00ccbb" indeterminate={true} />
+          <Progress.Bar
+            width={150}
+            color={fullConfig?.theme?.colors?.mainColor as string}
+            indeterminate={true}
+          />
 
           <Text className="mt-3 text-gray-600">
             Your order from {restaurant.title} is being prepared.
@@ -74,7 +82,7 @@ const Delivery = () => {
           title={restaurant.title}
           description={restaurant.short_description}
           identifier="origin"
-          pinColor="#00ccbb"
+          pinColor={fullConfig?.theme?.colors?.mainColor as string}
           coordinate={{
             latitude: +restaurant.lat,
             longitude: +restaurant.long,
@@ -94,7 +102,7 @@ const Delivery = () => {
           <Text className="text-gray-600">Your Rider</Text>
         </View>
         <View>
-          <Text className="text-[#00ccbb] mr-5 font-bold">Call Now</Text>
+          <Text className="text-mainColor mr-5 font-bold">Call Now</Text>
         </View>
       </SafeAreaView>
     </View>

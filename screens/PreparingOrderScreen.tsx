@@ -22,7 +22,7 @@ const PreparingOrderScreen = () => {
   }, []);
 
   return (
-    <SafeAreaView className="bg-[#00ccbb] flex-1 justify-center items-center">
+    <SafeAreaView className="bg-mainColor flex-1 justify-center items-center">
       <Animatable.Image
         className="w-96 h-96"
         iterationCount={1}

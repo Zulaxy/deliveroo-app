@@ -13,6 +13,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../tailwind.config.js";
+
 interface DishRowProps {
   dish: DishTypes;
 }
@@ -20,6 +23,7 @@ interface DishRowProps {
 const DishRow = ({ dish }: DishRowProps) => {
   const [isPressed, setIsPressed] = useState(false);
   const dispatch = useDispatch();
+  const fullConfig = resolveConfig(tailwindConfig);
 
   const basketItems = useSelector(selectBasketItems);
 
@@ -78,7 +82,11 @@ const DishRow = ({ dish }: DishRowProps) => {
             >
               <MinusCircleIcon
                 size={40}
-                color={basketItemsPerId.length === 0 ? "gray" : "#00ccbb"}
+                color={
+                  basketItemsPerId.length === 0
+                    ? "gray"
+                    : (fullConfig?.theme?.colors?.mainColor as string)
+                }
               />
             </TouchableOpacity>
 
@@ -89,7 +97,10 @@ const DishRow = ({ dish }: DishRowProps) => {
                 handleAddToBasket(dish);
               }}
             >
-              <PlusCircleIcon size={40} color="#00ccbb" />
+              <PlusCircleIcon
+                size={40}
+                color={fullConfig?.theme?.colors?.mainColor as string}
+              />
             </TouchableOpacity>
           </View>
         </View>

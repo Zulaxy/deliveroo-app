@@ -16,11 +16,15 @@ import Currency from "react-currency-formatter";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
 
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../tailwind.config.js";
+
 const BasketScreen = () => {
   type NavigationProp = NativeStackNavigationProp<
     RootStackParamList,
     "PreparingOrderScreen"
   >;
+  const fullConfig = resolveConfig(tailwindConfig);
 
   const navigation = useNavigation<NavigationProp>();
 
@@ -47,7 +51,7 @@ const BasketScreen = () => {
   return (
     <SafeAreaView className="flex-1 bg-white">
       <View className="flex-1 bg-gray-100">
-        <View className="p-5 border-b border-[#00ccbb] bg-white shadow-xs">
+        <View className="p-5 border-b border-mainColor bg-white shadow-xs">
           <View className="">
             <Text className="text-lg font-bold text-center">Basket</Text>
             <Text className="text-center text-gray-400">
@@ -60,7 +64,10 @@ const BasketScreen = () => {
             }}
             className="rounded-full bg-gray-100 absolute top-3 right-5"
           >
-            <XCircleIcon size={50} color="#00ccbb" />
+            <XCircleIcon
+              size={50}
+              color={fullConfig?.theme?.colors?.mainColor as string}
+            />
           </TouchableOpacity>
         </View>
         <View className="flex-row items-center space-x-4 px-4 py-3 bg-white my-5">
@@ -72,7 +79,7 @@ const BasketScreen = () => {
           />
           <Text className="flex-1">Deliver in 50 minutes</Text>
           <TouchableOpacity>
-            <Text className="text-[#00ccbb]">Change</Text>
+            <Text className="text-mainColor">Change</Text>
           </TouchableOpacity>
         </View>
         <View className="flex-1">
@@ -83,7 +90,7 @@ const BasketScreen = () => {
                   key={key}
                   className="flex-row items-center space-x-3 bg-white py-2 px-5"
                 >
-                  <Text className="text-[#00ccbb]">{items.length} x</Text>
+                  <Text className="text-mainColor">{items.length} x</Text>
                   <Image
                     className="w-12 h-12 rounded-full"
                     source={{ uri: urlFor(items[0]?.image).url() }}
@@ -99,7 +106,7 @@ const BasketScreen = () => {
                   </Text>
                   <TouchableOpacity>
                     <Text
-                      className="text-[#00ccbb] text-xs"
+                      className="text-mainColor text-xs"
                       onPress={() => {
                         dispatch(removeFromBasket(items[0]._id));
                       }}
@@ -134,7 +141,7 @@ const BasketScreen = () => {
             onPress={() => {
               navigation.navigate("PreparingOrderScreen");
             }}
-            className="rounded-lg bg-[#00ccbb] p-4"
+            className="rounded-lg bg-mainColor p-4"
           >
             <Text className="text-center text-white text-lg font-bold">
               Place Order

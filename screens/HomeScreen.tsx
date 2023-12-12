@@ -3,6 +3,9 @@ import { Text, View, Image, TextInput, ScrollView } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 
+import resolveConfig from "tailwindcss/resolveConfig";
+import tailwindConfig from "../tailwind.config.js";
+
 import Categories from "../components/Categories";
 
 import {
@@ -15,6 +18,7 @@ import { getFeaturedCategories } from "../sanity";
 import FeaturedRowComponent from "../components/FeaturedRowComponent";
 
 const HomeScreen = () => {
+  const fullConfig = resolveConfig(tailwindConfig);
   const navigation = useNavigation();
   const [featuredCategories, setFeaturedCategories] = useState([]);
 
@@ -43,10 +47,17 @@ const HomeScreen = () => {
           <Text className="font-bold text-gray-600 tex-xs">Deliver Now</Text>
           <View className="flex-row items-center">
             <Text className="font-bold text-xl">Current Location</Text>
-            <ChevronDownIcon size={20} color="#00ccbb" />
+            <ChevronDownIcon
+              className="text"
+              size={20}
+              color={fullConfig?.theme?.colors?.mainColor as string}
+            />
           </View>
         </View>
-        <UserIcon size={35} color="#00ccbb" />
+        <UserIcon
+          size={35}
+          color={fullConfig?.theme?.colors?.mainColor as string}
+        />
       </View>
       {/* Search */}
       <View className="flex-row items-center space-x-2 pb-2 mx-4">
@@ -57,7 +68,10 @@ const HomeScreen = () => {
             keyboardType="default"
           />
         </View>
-        <AdjustmentsVerticalIcon size={25} color="#00ccbb" />
+        <AdjustmentsVerticalIcon
+          size={25}
+          color={fullConfig?.theme?.colors?.mainColor as string}
+        />
       </View>
       <View className="pb-4">
         <Categories />
